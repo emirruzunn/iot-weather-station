@@ -1,41 +1,35 @@
 import time
-import dht
-import random
-from machine import Pin, I2C, ADC
+from machine import Pin, I2C
 from ssd1306 import SSD1306_I2C
+from sensors.readers import WokwiWeatherReader, HardwareWeatherReader
 
-# I2C ve OLED Tanımlaması
+# Simülasyon mu gerçek donanım mı? (Wokwi için True, Gerçek ESP32 için False)
+SIMULATION_MODE = True
+
+# Ortak OLED Ekran Başlatma (I2C SDA:21, SCL:22)
 i2c = I2C(0, sda=Pin(21), scl=Pin(22))
 oled = SSD1306_I2C(128, 64, i2c)
 
-# Sensörler
-dht_sensor = dht.DHT22(Pin(15))
-rain_adc = ADC(Pin(34))
-rain_adc.atten(ADC.ATTN_11DB)
-wind_adc = ADC(Pin(35))
-wind_adc.atten(ADC.ATTN_11DB)
+# İlgili sürücüyü seç
+if SIMULATION_MODE:
+    sensor_station = WokwiWeatherReader(dht_pin=15, rain_pin=34, wind_pin=35)
+else:
+    sensor_station = HardwareWeatherReader(sda_pin=21, scl_pin=22, rain_pin=34, wind_pin=35)
 
 while True:
     try:
-        dht_sensor.measure()
-        temp = dht_sensor.temperature()
-        hum = dht_sensor.humidity()
-        press = round(random.uniform(1010.0, 1015.0), 1)
-        
-        # Potansiyometre dönüşümleri
-        rain_pct = round((rain_adc.read() / 4095) * 100, 0)
-        wind_spd = round((wind_adc.read() / 4095) * 120.0, 1)
+        temp, hum, press, rain, wind = sensor_station.read()
 
-        # Net Ekran Düzeni
+        # OLED Ekran Güncelleme
         oled.fill(0)
         oled.text(f"Sicaklik:{temp:.1f} C", 0, 0)
         oled.text(f"Nem     :%{hum:.0f}", 0, 13)
         oled.text(f"Basinc  :{press:.0f} hPa", 0, 26)
-        oled.text(f"Yagis   :%{rain_pct:.0f}", 0, 39)
-        oled.text(f"Ruzgar  :{wind_spd:.1f}km/h", 0, 52)
+        oled.text(f"Yagis   :%{rain:.0f}", 0, 39)
+        oled.text(f"Ruzgar  :{wind:.1f}km/h", 0, 52)
         oled.show()
 
-    except Exception as e:
+    except Exception as err:
         oled.fill(0)
         oled.text("Sensor Hatasi!", 0, 25)
         oled.show()
