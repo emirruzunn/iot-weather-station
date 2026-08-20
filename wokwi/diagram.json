@@ -1,0 +1,24 @@
+{
+  "version": 1,
+  "author": "IoT Weather Station",
+  "editor": "wokwi",
+  "parts": [
+    { "type": "board-esp32-devkit-c-v4", "id": "esp", "top": 0, "left": 0, "attrs": {} },
+    { "type": "wokwi-bme280", "id": "bme", "top": -120, "left": 140, "attrs": {} },
+    { "type": "wokwi-potentiometer", "id": "pot_rain", "top": 150, "left": -120, "attrs": { "label": "Yagis" } },
+    { "type": "wokwi-potentiometer", "id": "pot_wind", "top": 150, "left": 120, "attrs": { "label": "Ruzgar" } }
+  ],
+  "connections": [
+    [ "esp:GND.1", "bme:GND", "black", [ "v0" ] ],
+    [ "esp:3V3", "bme:VIN", "red", [ "v0" ] ],
+    [ "esp:21", "bme:SDA", "blue", [ "v0" ] ],
+    [ "esp:22", "bme:SCL", "yellow", [ "v0" ] ],
+    [ "esp:GND.2", "pot_rain:GND", "black", [ "v0" ] ],
+    [ "esp:3V3", "pot_rain:VCC", "red", [ "v0" ] ],
+    [ "esp:34", "pot_rain:SIG", "green", [ "v0" ] ],
+    [ "esp:GND.2", "pot_wind:GND", "black", [ "v0" ] ],
+    [ "esp:3V3", "pot_wind:VCC", "red", [ "v0" ] ],
+    [ "esp:35", "pot_wind:SIG", "orange", [ "v0" ] ]
+  ],
+  "dependencies": {}
+}

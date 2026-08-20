@@ -1,0 +1,3 @@
+# Proje standart kütüphaneler kullanır; test ve linting araçları:
+pytest>=7.4.0
+flake8>=6.1.0
