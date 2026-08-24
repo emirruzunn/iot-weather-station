@@ -1,6 +1,9 @@
 import argparse
 import csv
 import sys
+
+__version__ = "1.1.0"
+
 from sensors.simulator import WeatherSimulator
 from storage.logger import save_to_csv, save_to_json
 from reporting.stats import calculate_metrics
