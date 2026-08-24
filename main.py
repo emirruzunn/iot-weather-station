@@ -10,7 +10,9 @@ METRIC_LABELS = {
     "humidity": "Nem (%)",
     "pressure": "Basınç (hPa)",
     "rain_intensity": "Yağış Şiddeti (%)",
-    "wind_speed": "Rüzgar Hızı (km/h)"
+    "wind_speed": "Rüzgar Hızı (km/h)",
+    "hail_intensity": "Dolu Yoğunluğu (darbe/dk)",
+    "soil_moisture": "Toprak Nemi (%)"
 }
 
 def main():

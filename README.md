@@ -13,7 +13,11 @@ ESP32 tabanlı meteoroloji istasyonu (Wokwi simülasyonu ve gerçek donanım des
 | **Basınç** | Simüle (1010-1015) | BME280 | hPa | - / GPIO 21-22 (I2C) |
 | **Yağış Şiddeti** | Potansiyometre | Analog Yağış Sensörü | % | GPIO 34 (ADC1) |
 | **Rüzgar Hızı** | Potansiyometre | Analog Anemometre | km/h | GPIO 35 (ADC1) |
+| **Dolu Yoğunluğu** | — | Piezo Titreşim Sensörü (SW-420) | darbe/dk | GPIO 32 (ADC1) |
+| **Toprak Nemi** | — | Kapasitif Toprak Nemi Sensörü (v1.2) | % | GPIO 33 (ADC1) |
 | **Görsel Ekran** | SSD1306 OLED (128x64) | SSD1306 OLED (128x64) | - | SDA: 21, SCL: 22 (I2C) |
+
+> **Not:** Dolu Yoğunluğu ve Toprak Nemi sensörleri yalnızca gerçek donanım modunda desteklenir. Wokwi simülasyonunda bu sensörler bulunmamaktadır; CLI simülatörü (`generate` komutu) her iki metriği de sanal olarak üretir.
 
 ---
 
@@ -21,7 +25,7 @@ ESP32 tabanlı meteoroloji istasyonu (Wokwi simülasyonu ve gerçek donanım des
 
 ### 1. Repoyu Klonlayın
 ```bash
-git clone [https://github.com/](https://github.com/)<kullanici-adiniz>/iot-weather-station.git
+git clone https://github.com/emirruzunn/iot-weather-station.git
 cd iot-weather-station
 ```
 
@@ -77,6 +81,8 @@ python main.py report --file data/readings.csv
 python main.py report --file data/readings.csv --metric wind_speed
 python main.py report --file data/readings.csv --metric temperature
 python main.py report --file data/readings.csv --metric rain_intensity
+python main.py report --file data/readings.csv --metric hail_intensity
+python main.py report --file data/readings.csv --metric soil_moisture
 ```
 
 ---
@@ -91,7 +97,7 @@ iot-weather-station/
 ├── main.py                  # PC tarafındaki CLI aracı (generate & report)
 ├── sensors/
 │   ├── __init__.py
-│   ├── simulator.py         # 5 metrikli sahte veri üreticisi
+│   ├── simulator.py         # 7 metrikli sahte veri üreticisi
 │   └── readers.py           # Donanım & simülasyon sensör okuyucuları
 ├── storage/
 │   ├── __init__.py
@@ -105,6 +111,30 @@ iot-weather-station/
     ├── diagram.json         # Devre şeması (ESP32 + DHT22 + OLED + Potansiyometreler)
     ├── ssd1306.py           # OLED ekran sürücüsü
     └── main.py              # ESP32 üzerinde çalışan MicroPython kodu
+```
+
+---
+
+## 🔌 Gerçek Donanım Bağlantı Şeması
+
+Dolu ve toprak nemi sensörlerinin ESP32'ye bağlantısı:
+
+```text
+ESP32 DevKit v4
+├── GPIO 32 (ADC1_CH4) ── Piezo / SW-420 Titreşim Sensörü (Dolu Algılama)
+│   ├── VCC → 3.3V
+│   ├── GND → GND
+│   └── SIG → GPIO 32
+│
+├── GPIO 33 (ADC1_CH5) ── Kapasitif Toprak Nemi Sensörü v1.2
+│   ├── VCC → 3.3V
+│   ├── GND → GND
+│   └── AOUT → GPIO 33
+│
+├── GPIO 34 (ADC1_CH6) ── Analog Yağış Sensörü
+├── GPIO 35 (ADC1_CH7) ── Analog Anemometre (Rüzgar)
+├── GPIO 21-22 (I2C)   ── BME280 (Sıcaklık/Nem/Basınç) + SSD1306 OLED
+└── GPIO 15            ── DHT22 (yalnızca Wokwi simülasyonunda)
 ```
 
 ---

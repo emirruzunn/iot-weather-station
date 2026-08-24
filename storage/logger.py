@@ -2,7 +2,7 @@ import csv
 import json
 import os
 
-HEADERS = ["timestamp", "sensor_id", "temperature", "humidity", "pressure", "rain_intensity", "wind_speed"]
+HEADERS = ["timestamp", "sensor_id", "temperature", "humidity", "pressure", "rain_intensity", "wind_speed", "hail_intensity", "soil_moisture"]
 
 def save_to_csv(data_list, filepath):
     os.makedirs(os.path.dirname(filepath), exist_ok=True)

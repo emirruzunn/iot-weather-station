@@ -1,5 +1,5 @@
 def calculate_metrics(records, target_metric=None):
-    metrics = ["temperature", "humidity", "pressure", "rain_intensity", "wind_speed"]
+    metrics = ["temperature", "humidity", "pressure", "rain_intensity", "wind_speed", "hail_intensity", "soil_moisture"]
     if target_metric:
         metrics = [target_metric]
 
