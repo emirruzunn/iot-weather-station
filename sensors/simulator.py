@@ -13,5 +13,7 @@ class WeatherSimulator:
             "humidity": round(random.uniform(30.0, 85.0), 2),        # %
             "pressure": round(random.uniform(990.0, 1025.0), 2),     # hPa
             "rain_intensity": round(random.uniform(0.0, 100.0), 1),  # %
-            "wind_speed": round(random.uniform(0.0, 90.0), 1)        # km/h
+            "wind_speed": round(random.uniform(0.0, 90.0), 1),       # km/h
+            "hail_intensity": round(random.uniform(0.0, 100.0), 1),  # darbe/dk
+            "soil_moisture": round(random.uniform(0.0, 100.0), 1)    # %
         }
