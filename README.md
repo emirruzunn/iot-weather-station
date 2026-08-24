@@ -1,4 +1,6 @@
-# 🌦️ IoT Weather Station & Sensor Analytics
+# 🌦️ IoT Weather Station & Sensor Analytics — v1.1.0
+
+![Version](https://img.shields.io/badge/version-1.1.0-blue) ![Python](https://img.shields.io/badge/python-3.8%2B-green) ![Platform](https://img.shields.io/badge/platform-ESP32-orange)
 
 ESP32 tabanlı meteoroloji istasyonu (Wokwi simülasyonu ve gerçek donanım desteği) ile toplanan çevresel verileri toplayan, saklayan ve analiz eden Python CLI aracı.
 
