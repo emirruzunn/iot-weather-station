@@ -19,6 +19,20 @@
       "left": 120,
       "attrs": { "label": "Ruzgar" }
     },
+    {
+      "type": "wokwi-potentiometer",
+      "id": "pot_hail",
+      "top": 280,
+      "left": -120,
+      "attrs": { "label": "Dolu" }
+    },
+    {
+      "type": "wokwi-potentiometer",
+      "id": "pot_soil",
+      "top": 280,
+      "left": 120,
+      "attrs": { "label": "ToprakNem" }
+    },
     { "type": "wokwi-ssd1306", "id": "oled", "top": -12.5, "left": -151.7, "attrs": {} }
   ],
   "connections": [
@@ -31,6 +45,12 @@
     [ "esp:GND.2", "pot_wind:GND", "black", [ "v0" ] ],
     [ "esp:3V3", "pot_wind:VCC", "red", [ "v0" ] ],
     [ "esp:35", "pot_wind:SIG", "orange", [ "v0" ] ],
+    [ "esp:GND.2", "pot_hail:GND", "black", [ "v0" ] ],
+    [ "esp:3V3", "pot_hail:VCC", "red", [ "v0" ] ],
+    [ "esp:32", "pot_hail:SIG", "purple", [ "v0" ] ],
+    [ "esp:GND.2", "pot_soil:GND", "black", [ "v0" ] ],
+    [ "esp:3V3", "pot_soil:VCC", "red", [ "v0" ] ],
+    [ "esp:33", "pot_soil:SIG", "cyan", [ "v0" ] ],
     [ "esp:GND.1", "oled:GND", "black", [ "v0" ] ],
     [ "esp:3V3", "oled:VCC", "red", [ "v0" ] ],
     [ "esp:21", "oled:SDA", "blue", [ "v0" ] ],

@@ -1,6 +1,6 @@
-# 🌦️ IoT Weather Station & Sensor Analytics — v1.2.0
+# 🌦️ IoT Weather Station & Sensor Analytics — v1.3.0
 
-![Version](https://img.shields.io/badge/version-1.2.0-blue) ![Python](https://img.shields.io/badge/python-3.8%2B-green) ![Platform](https://img.shields.io/badge/platform-ESP32-orange)
+![Version](https://img.shields.io/badge/version-1.3.0-blue) ![Python](https://img.shields.io/badge/python-3.8%2B-green) ![Platform](https://img.shields.io/badge/platform-ESP32-orange)
 
 ESP32 tabanlı meteoroloji istasyonu (Wokwi simülasyonu ve gerçek donanım desteği) ile toplanan çevresel verileri toplayan, saklayan ve analiz eden Python CLI aracı.
 
@@ -15,11 +15,11 @@ ESP32 tabanlı meteoroloji istasyonu (Wokwi simülasyonu ve gerçek donanım des
 | **Basınç** | Simüle (1010-1015) | BME280 | hPa | — / GPIO 21-22 (I2C) | I2C (Addr: 0x76) |
 | **Yağış Şiddeti** | Potansiyometre | Analog Yağış Sensörü | % | GPIO 34 (ADC1_CH6) | Analog (ADC — 12-bit) |
 | **Rüzgar Hızı** | Potansiyometre | Analog Anemometre | km/h | GPIO 35 (ADC1_CH7) | Analog (ADC — 12-bit) |
-| **Dolu Yoğunluğu** | — | Piezo Titreşim Sensörü (SW-420) | darbe/dk | GPIO 32 (ADC1_CH4) | Analog (ADC — 12-bit) |
-| **Toprak Nemi** | — | Kapasitif Toprak Nemi Sensörü (v1.2) | % | GPIO 33 (ADC1_CH5) | Analog (ADC — 12-bit) |
+| **Dolu Yoğunluğu** | Potansiyometre | Piezo Titreşim Sensörü (SW-420) | darbe/dk | GPIO 32 (ADC1_CH4) | Analog (ADC — 12-bit) |
+| **Toprak Nemi** | Potansiyometre | Kapasitif Toprak Nemi Sensörü (v1.2) | % | GPIO 33 (ADC1_CH5) | Analog (ADC — 12-bit) |
 | **Görsel Ekran** | SSD1306 OLED (128x64) | SSD1306 OLED (128x64) | — | SDA: 21, SCL: 22 | I2C (Addr: 0x3C) |
 
-> **Not:** Dolu Yoğunluğu ve Toprak Nemi sensörleri yalnızca gerçek donanım modunda desteklenir. Wokwi simülasyonunda bu sensörler bulunmamaktadır; CLI simülatörü (`generate` komutu) her iki metriği de sanal olarak üretir.
+> **Not:** Tüm sensörler hem Wokwi simülasyonunda hem de gerçek donanımda desteklenmektedir. Wokwi'de analog sensörler potansiyometre ile simüle edilir.
 
 ---
 
@@ -110,7 +110,7 @@ iot-weather-station/
 ├── data/
 │   └── .gitkeep
 └── wokwi/
-    ├── diagram.json         # Devre şeması (ESP32 + DHT22 + OLED + Potansiyometreler)
+    ├── diagram.json         # Devre şeması (ESP32 + DHT22 + OLED + 4x Potansiyometre)
     ├── ssd1306.py           # OLED ekran sürücüsü
     └── main.py              # ESP32 üzerinde çalışan MicroPython kodu
 ```

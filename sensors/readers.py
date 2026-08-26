@@ -4,13 +4,17 @@ from machine import Pin, I2C, ADC
 
 class WokwiWeatherReader:
     """Wokwi ortamı için DHT22 + Potansiyometre + Simüle Basınç sürücüsü"""
-    def __init__(self, dht_pin=15, rain_pin=34, wind_pin=35):
+    def __init__(self, dht_pin=15, rain_pin=34, wind_pin=35, hail_pin=32, soil_pin=33):
         import dht
         self.dht = dht.DHT22(Pin(dht_pin))
         self.rain_adc = ADC(Pin(rain_pin))
         self.rain_adc.atten(ADC.ATTN_11DB)
         self.wind_adc = ADC(Pin(wind_pin))
         self.wind_adc.atten(ADC.ATTN_11DB)
+        self.hail_adc = ADC(Pin(hail_pin))
+        self.hail_adc.atten(ADC.ATTN_11DB)
+        self.soil_adc = ADC(Pin(soil_pin))
+        self.soil_adc.atten(ADC.ATTN_11DB)
 
     def read(self):
         self.dht.measure()
@@ -19,7 +23,9 @@ class WokwiWeatherReader:
         press = round(random.uniform(1010.0, 1015.0), 1)
         rain = round((self.rain_adc.read() / 4095) * 100, 1)
         wind = round((self.wind_adc.read() / 4095) * 120.0, 1)
-        return temp, hum, press, rain, wind
+        hail = round((self.hail_adc.read() / 4095) * 100, 1)
+        soil = round((1 - self.soil_adc.read() / 4095) * 100, 1)
+        return temp, hum, press, rain, wind, hail, soil
 
 
 class HardwareWeatherReader:
