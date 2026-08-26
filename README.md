@@ -1,6 +1,6 @@
-# 🌦️ IoT Weather Station & Sensor Analytics — v1.1.0
+# 🌦️ IoT Weather Station & Sensor Analytics — v1.2.0
 
-![Version](https://img.shields.io/badge/version-1.1.0-blue) ![Python](https://img.shields.io/badge/python-3.8%2B-green) ![Platform](https://img.shields.io/badge/platform-ESP32-orange)
+![Version](https://img.shields.io/badge/version-1.2.0-blue) ![Python](https://img.shields.io/badge/python-3.8%2B-green) ![Platform](https://img.shields.io/badge/platform-ESP32-orange)
 
 ESP32 tabanlı meteoroloji istasyonu (Wokwi simülasyonu ve gerçek donanım desteği) ile toplanan çevresel verileri toplayan, saklayan ve analiz eden Python CLI aracı.
 
@@ -8,16 +8,16 @@ ESP32 tabanlı meteoroloji istasyonu (Wokwi simülasyonu ve gerçek donanım des
 
 ## 📌 Desteklenen Metrikler & Donanım Yapısı
 
-| Metrik | Wokwi Simülasyonu | Gerçek Donanım | Birim | ESP32 Pini |
-| :--- | :--- | :--- | :--- | :--- |
-| **Sıcaklık** | DHT22 | BME280 | °C | GPIO 15 (DHT) / GPIO 21-22 (I2C) |
-| **Nem** | DHT22 | BME280 | % | GPIO 15 (DHT) / GPIO 21-22 (I2C) |
-| **Basınç** | Simüle (1010-1015) | BME280 | hPa | - / GPIO 21-22 (I2C) |
-| **Yağış Şiddeti** | Potansiyometre | Analog Yağış Sensörü | % | GPIO 34 (ADC1) |
-| **Rüzgar Hızı** | Potansiyometre | Analog Anemometre | km/h | GPIO 35 (ADC1) |
-| **Dolu Yoğunluğu** | — | Piezo Titreşim Sensörü (SW-420) | darbe/dk | GPIO 32 (ADC1) |
-| **Toprak Nemi** | — | Kapasitif Toprak Nemi Sensörü (v1.2) | % | GPIO 33 (ADC1) |
-| **Görsel Ekran** | SSD1306 OLED (128x64) | SSD1306 OLED (128x64) | - | SDA: 21, SCL: 22 (I2C) |
+| Metrik | Wokwi Simülasyonu | Gerçek Donanım | Birim | ESP32 Pini | Haberleşme Arayüzü |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| **Sıcaklık** | DHT22 | BME280 | °C | GPIO 15 (DHT) / GPIO 21-22 (I2C) | Single-Wire (DHT) / I2C (BME280) |
+| **Nem** | DHT22 | BME280 | % | GPIO 15 (DHT) / GPIO 21-22 (I2C) | Single-Wire (DHT) / I2C (BME280) |
+| **Basınç** | Simüle (1010-1015) | BME280 | hPa | — / GPIO 21-22 (I2C) | I2C (Addr: 0x76) |
+| **Yağış Şiddeti** | Potansiyometre | Analog Yağış Sensörü | % | GPIO 34 (ADC1_CH6) | Analog (ADC — 12-bit) |
+| **Rüzgar Hızı** | Potansiyometre | Analog Anemometre | km/h | GPIO 35 (ADC1_CH7) | Analog (ADC — 12-bit) |
+| **Dolu Yoğunluğu** | — | Piezo Titreşim Sensörü (SW-420) | darbe/dk | GPIO 32 (ADC1_CH4) | Analog (ADC — 12-bit) |
+| **Toprak Nemi** | — | Kapasitif Toprak Nemi Sensörü (v1.2) | % | GPIO 33 (ADC1_CH5) | Analog (ADC — 12-bit) |
+| **Görsel Ekran** | SSD1306 OLED (128x64) | SSD1306 OLED (128x64) | — | SDA: 21, SCL: 22 | I2C (Addr: 0x3C) |
 
 > **Not:** Dolu Yoğunluğu ve Toprak Nemi sensörleri yalnızca gerçek donanım modunda desteklenir. Wokwi simülasyonunda bu sensörler bulunmamaktadır; CLI simülatörü (`generate` komutu) her iki metriği de sanal olarak üretir.
 
